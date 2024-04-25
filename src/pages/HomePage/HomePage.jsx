@@ -27,8 +27,8 @@ export default function HomePage() {
   return (
     <div>
       {error && <p>please visit our Movies page</p>}
-      {movies.length > 0 && <MovieList trendMovies={movies} />}
       {loading && <p>Loading movies...</p>}
+      {movies.length > 0 && <MovieList trendMovies={movies} />}
     </div>
   );
 }

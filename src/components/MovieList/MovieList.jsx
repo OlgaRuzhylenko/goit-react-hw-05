@@ -8,7 +8,7 @@ export default function MovieList({ trendMovies }) {
         {trendMovies.map((trendMovie) => (
           <li key={trendMovie.id}>
             <p>
-              <Link to="">{trendMovie.title}</Link>
+              <Link to={`/movies/${trendMovie.id}`}>{trendMovie.title}</Link>
             </p>
           </li>
         ))}

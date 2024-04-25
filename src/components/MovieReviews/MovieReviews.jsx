@@ -14,7 +14,6 @@ export default function MovieReviews() {
       try {
         setLoading(true);
         const data = await fetchReviews(movieId);
-
         setReviewItem(data.results);
       } catch (error) {
         setError(true);
@@ -29,6 +28,9 @@ export default function MovieReviews() {
     <div>
       {error && <p>We don't have any reviews for this movie.</p>}
       {loading && <p>Loading reviews list...</p>}
+      {reviewItem.length === 0 && (
+        <p>We don't have any reviews for this movie.</p>
+      )}
       <ul>
         {reviewItem.map((review) => (
           <li key={review.id}>

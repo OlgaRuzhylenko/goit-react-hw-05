@@ -1,11 +1,12 @@
 import { fetchMovieById } from "../../movies-api";
+import { Suspense } from "react";
 import css from "./MovieDetailsPage.module.css";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useParams, Link, Outlet, useLocation } from "react-router-dom";
 
 export default function MovieDetailsPage() {
   const location = useLocation();
-  const backLinkHref = location.state;
+  const backLinkURLRef = useRef(location.state ?? "/movies");
 
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
@@ -31,11 +32,11 @@ export default function MovieDetailsPage() {
     <div>
       {error && <p>please visit our Home page</p>}
       {loading && <p>Loading movie...</p>}
-      {/* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */}
+
       <button>
-        <Link to={backLinkHref}>Go back</Link>
+        <Link to={backLinkURLRef.current}>Go back</Link>
       </button>
-      {/* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */}
+
       {movie && (
         <div>
           <img
@@ -61,7 +62,9 @@ export default function MovieDetailsPage() {
               <Link to="reviews">Reviews</Link>
             </li>
           </ul>
-          <Outlet />
+          <Suspense fallback={<b>Loading nested route...</b>}>
+            <Outlet />
+          </Suspense>
         </div>
       )}
     </div>

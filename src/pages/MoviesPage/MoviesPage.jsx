@@ -1,38 +1,38 @@
 import MovieList from "../../components/MovieList/MovieList";
-import toast, { Toaster } from "react-hot-toast";
+import SearchBar from "../../components/SearchBar/SearchBar";
+import { fetchSearchMovie } from "../../movies-api";
+
+import { useEffect, useState } from "react";
 import css from "./MoviesPage.module.css";
 
 export default function MoviesPage() {
-//   const [query, setQuery] = useState("");
+  //   const [query, setQuery] = useState("");
+  const [movies, setMovies] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const [query, setQuery] = useState("");
 
-//   const handleSearch = (evt) => {
-//     evt.preventDefault();
+  const handleSearch = async (newQuery) => {
+    setQuery(newQuery);
 
-//     const form = evt.target;
-//     const text = form.elements.text.value;
-//     if (text === "") {
-//       toast.error("Please, enter your request");
-//     }
+    try {
+      setLoading(true);
+      const data = await fetchSearchMovie(newQuery);
+      console.log(data.results);
+      setMovies(data.results);
+    } catch (error) {
+      setError(true);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-//     form.reset();
-//   };
-
-//   return (
-//     <header>
-//       <form>
-//         <input
-//           className={css.input}
-//           name="text"
-//           type="text"
-//           autoComplete="off"
-//           autoFocus
-//           placeholder="Search movie"
-//         />
-//         <button type="submit" className={css.btn}>
-//           Search
-//         </button>
-//         <Toaster />
-//       </form>
-//     </header>
-//   );
-// }
+  return (
+    <div>
+      <SearchBar onSearch={handleSearch} />
+      {loading && <p>Loading movies list...</p>}
+      {error && <p>No movies found</p>}
+      {movies.length > 0 && <MovieList trendMovies={movies} />}
+    </div>
+  );
+}

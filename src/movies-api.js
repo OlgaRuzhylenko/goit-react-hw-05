@@ -27,8 +27,8 @@ export const fetchReviews = async (movieId) => {
   return response.data
 }
 
-// export const fetchSearchMovie = async (movieId) => {
-//   const response = await axios.get(`https://api.themoviedb.org/3/movie/${movieId}/reviews?language=en-US&page=1`, options)
-//   return response.data
-// }
+export const fetchSearchMovie = async (text) => {
+  const response = await axios.get(`https://api.themoviedb.org/3/search/movie?query=${text}&include_adult=false&language=en-US&page=1`, options)
+  return response.data
+}
 

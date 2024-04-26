@@ -1,9 +1,12 @@
 import { fetchMovieById } from "../../movies-api";
 import css from "./MovieDetailsPage.module.css";
 import { useEffect, useState } from "react";
-import { useParams, Link, Outlet } from "react-router-dom";
+import { useParams, Link, Outlet, useLocation } from "react-router-dom";
 
 export default function MovieDetailsPage() {
+  const location = useLocation();
+  const backLinkHref = location.state;
+
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -28,9 +31,11 @@ export default function MovieDetailsPage() {
     <div>
       {error && <p>please visit our Home page</p>}
       {loading && <p>Loading movie...</p>}
+      {/* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */}
       <button>
-        <Link to="/">Go back</Link>
+        <Link to={backLinkHref}>Go back</Link>
       </button>
+      {/* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */}
       {movie && (
         <div>
           <img

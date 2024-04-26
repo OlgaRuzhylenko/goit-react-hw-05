@@ -2,7 +2,7 @@ import MovieList from "../../components/MovieList/MovieList";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import { fetchSearchMovie } from "../../movies-api";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import css from "./MoviesPage.module.css";
 
 export default function MoviesPage() {
@@ -18,7 +18,6 @@ export default function MoviesPage() {
     try {
       setLoading(true);
       const data = await fetchSearchMovie(newQuery);
-      console.log(data.results);
       setMovies(data.results);
     } catch (error) {
       setError(true);

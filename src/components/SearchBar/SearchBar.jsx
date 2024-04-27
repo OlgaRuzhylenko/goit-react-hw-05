@@ -1,7 +1,7 @@
 import css from "./SearchBar.module.css";
 import toast, { Toaster } from "react-hot-toast";
 
-export default function SearchBar({ onSearch }) {
+export default function SearchBar({ onSearch, value, onSearch2 }) {
   const handleSubmit = (evt) => {
     evt.preventDefault();
     const form = evt.target;
@@ -20,6 +20,8 @@ export default function SearchBar({ onSearch }) {
           className={css.input}
           name="text"
           type="text"
+          value={value}
+          onChange={(e) => onSearch2(e.target.value)}
           autoComplete="off"
           autoFocus
           placeholder="Search movie"

@@ -30,7 +30,7 @@ export default function HomePage() {
       {loading && <p>Loading movies...</p>}
       {movies.length > 0 && (
         <div>
-          <p>Trending today</p>
+          <p className={css.text}>Trending today</p>
           <MovieList trendMovies={movies} />
         </div>
       )}

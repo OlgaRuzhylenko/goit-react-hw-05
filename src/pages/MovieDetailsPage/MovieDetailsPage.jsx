@@ -33,20 +33,30 @@ export default function MovieDetailsPage() {
       {error && <p>please visit our Home page</p>}
       {loading && <p>Loading movie...</p>}
 
-      <button>
-        <Link to={backLinkURLRef.current}>Go back</Link>
+      <button className={css.btn}>
+        <Link to={backLinkURLRef.current} className={css.btnLink}>
+          Go back
+        </Link>
       </button>
 
       {movie && (
         <div>
-          <img
-            src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}
-            alt={movie.original_title}
-          />
-          <h1>{movie.original_title}</h1>
-          <p></p>
-          <h2>Overview</h2>
-          <p>{movie.overview}</p>
+          <div className={css.wrap}>
+            <img
+              src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}
+              alt={movie.original_title}
+              className={css.img}
+            />
+            <div>
+              <div className={css.titleWrap}>
+                <h1>{movie.original_title}</h1>
+                <h2>{movie.release_date}</h2>
+              </div>
+              <p>User Score: {movie.vote_average * 10}%</p>
+              <h2>Overview</h2>
+              <p>{movie.overview}</p>
+            </div>
+          </div>
           <h2>Genres</h2>
           <ul>
             {movie.genres.map((genre) => (

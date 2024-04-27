@@ -32,7 +32,6 @@ export default function MovieDetailsPage() {
     <div>
       {error && <p>please visit our Home page</p>}
       {loading && <p>Loading movie...</p>}
-
       <button className={css.btn}>
         <Link to={backLinkURLRef.current} className={css.btnLink}>
           Go back
@@ -50,19 +49,21 @@ export default function MovieDetailsPage() {
             <div>
               <div className={css.titleWrap}>
                 <h1>{movie.original_title}</h1>
-                <h2>{movie.release_date}</h2>
+                <h2>({movie.release_date.slice(0, 4)})</h2>
               </div>
               <p>User Score: {movie.vote_average * 10}%</p>
               <h2>Overview</h2>
               <p>{movie.overview}</p>
+
+              <h2>Genres</h2>
+              <ul className={css.genresList}>
+                {movie.genres.map((genre) => (
+                  <li key={genre.id}>{genre.name}</li>
+                ))}
+              </ul>
             </div>
           </div>
-          <h2>Genres</h2>
-          <ul>
-            {movie.genres.map((genre) => (
-              <li key={genre.id}>{genre.name}</li>
-            ))}
-          </ul>
+
           <h3>Additional information</h3>
           <ul>
             <li>
